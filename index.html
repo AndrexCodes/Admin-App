@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+    <style>
+        body{
+            background-color: rgba(236, 236, 236, 0.354);
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="dashscreen.css">
+    <link rel="stylesheet" href="loginscreen.css">
+    <link rel="stylesheet" href="productsScreen.css">
+    <link rel="stylesheet" href="addproduct.css">
+    <link rel="stylesheet" href="logScreen.css">
+    <link rel="stylesheet" href="addUser.css">
+    <link rel="stylesheet" href="loadingScreen.css">
+    <link rel="stylesheet" href="add_files_screen.css">
+    <link rel="stylesheet" href="updateProducts_screen.css">
+    <link rel="stylesheet" href="product_details_screen.css">
+</head>
+<body  onload="getMassUnits(true)">
+<!-- <body> -->
+    <div id="loginScreen">
+        <form name="login_cred">
+            <img src="simba_app.png" alt="">
+            <p>SIMBA FARM</p>
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="password">
+            <input type="button" onclick="login()" value="Log In">
+            <p>If forgot password <br> Call: 0795359098</p>
+        </form>
+    </div>
+    <div id="dashScreen">
+        <header>
+            <p>
+                <span>Welcome to</span><br>
+                Simba Farm
+            </p>
+            <div>
+                <input type="checkbox" name="" id="">
+                <div class="toggle">
+                    <div id="bar_1"></div>
+                    <div id="bar_2"></div>
+                    <div id="bar_3"></div>
+                </div>
+                <ul id="dash_menu_data">
+                    <li onclick="newUnit()">New Business</li>
+                    <li>Settings</li>
+                    <li>Log Out</li>
+                </ul>
+            </div>
+        </header>
+        <div class="extra">
+            <p>My Businesses</p>
+            <input type="text" name="search_home" id="search_home" placeholder="Search  here ........" style="display: none;">
+        </div>
+        <div id="userUnits">
+            <div class="unitUnit">
+                <p>K</p>
+                <span>Kenol Simba</span>
+            </div>
+            <div class="unitUnit">
+                <p>M</p>
+                <span>Muranga Simba</span>
+            </div>
+        </div>
+        <div class="addUnit">
+            <img src="home_icon.png" alt="">
+            <img src="search_icon_white.png" alt="">
+            <img src="settings.png" alt="">
+        </div>
+    </div>
+    <div id="productsScreen">
+        <header>
+            <div onclick="screenManager(0)">
+                <img src="back_white_icon.png" alt="">
+            </div>
+            <p>Stocks Manager</p>
+            <div class="product_menu">
+                <input type="checkbox" name="product_menu" id="product_menu">
+                <span></span>
+                <span></span>
+                <span></span>
+                <ul id="product_screen_menu">
+                    <li>New employees</li>
+                </ul>
+            </div>
+        </header>
+        <div class="product_search">
+            <input type="text" name="product_search_box" id="product_search_box" placeholder="Product Search ......" oninput="ProductSearch()">
+        </div>
+        <div id="AllProducts">
+            
+        </div>
+    </div>
+    <div id="product_details_screen">
+        <header>
+            <div>
+                <img src="back_white_icon.png" alt="" onclick="screenManager(2)">
+            </div>
+            <p>Product Details</p>
+            <div class="product_menu">
+                <input type="checkbox" name="" id="">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
+        <div>
+            <div class="img_details_div">
+                <img src="fanta.png" alt="" id="img_details">
+            </div>
+            <div class="text_details">
+                <p id="view_product_name">Gas Cylinder XD (1000)</p>
+                <p>
+                    <span>Price</span>
+                    <span id="view_product_price">Ksh 3,000</span>
+                </p>
+                <p>
+                    <span>In Stock</span>
+                    <span id="view_product_stock">400 Units</span>
+                </p>
+                <p>
+                    <span>Sold</span>
+                    <span id="view_product_sold">400 Units</span>
+                </p>
+                <p>
+                    <span>Assets</span>
+                    <span id="view_product_assets">Ksh 400</span>
+                </p>
+                <button onclick="screenManager(8)">Edit</button>
+                <button style="background-color: rgb(255, 54, 54);">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div id="updateProducts_screen">
+        <header>
+            <div>
+                <img src="back_white_icon.png" alt="" onclick="screenManager(9)">
+            </div>
+            <p>Edit Product</p>
+        </header>
+        <form action="">
+            <div>
+                <img src="" alt="" id="edit_product_img">
+                <input type="file" name="edit_product_img_input" id="edit_product_img_input">
+            </div>
+            <label for="text">Name of Product</label>
+            <input type="text" name="edit_product_name" id="edit_product_name" minlength="4" required>
+            <label for="text">Product Price</label>
+            <input type="number" name="edit_product_price" id="edit_product_price"  minlength="1" required>
+            <label for="text">Quantity</label>
+            <input type="number" name="edit_product_quantity" id="edit_product_quantity" minlength="1" required>
+            <button>Update</button>
+        </form>
+    </div>
+    <div id="addProductScreen">
+        <button onclick="screenManager(2)">&LeftArrow;</button>
+        <form name="addProductForm" onsubmit="AddProduct(); return false">
+            <h4>New Product</h4>
+            <input type="text" name="productName" id="productName" placeholder="Item Name">
+            <input type="number" name="productPrice" id="productPrice" placeholder="Unit Price">
+            <input type="number" name="productQuantity" id="productQuantity" placeholder="Initial Quantity">
+            <input type="file" name="productImage" id="productImage">
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
+    <div id="logScreen">
+    </div>
+    <div id="addUser">
+        <button onclick="screenManager(2)" id="back_btn">&LeftArrow;</button>
+        <form name="addUserForm" onsubmit="addUser();return false">
+            <h3>Add User</h3>
+            <input type="text" name="username" id="username" placeholder="User Name">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="submit" value="Add User">
+        </form>
+    </div>
+    <div id="add_files_screen">
+        <header>
+            <img src="back_white_icon.png" alt="" onclick="screenManager(2)">
+            <img src="new-file.png" alt="" onclick="screenManager(7)">
+        </header>
+        <div id="all_files">
+            <div class="unit_file">
+                <div class="unit_file_img">
+                    <img src="folder.png" alt="">
+                </div>
+                <div class="unit_base">
+                    <img src="folder.png" alt="">
+                    <p>Business License <br> 12-03-2024</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div id="loading_screen">
+        <div class="loader">
+            <div class="box1"></div>
+            <div class="box2"></div>
+            <div class="box3"></div>
+          </div>
+    </div>
+    <div id="add_file_form">
+        <header>
+            <img src="back_white_icon.png" alt="" onclick="screenManager(6)">
+        </header>
+        <form name="add_file" onsubmit="addNewFile(); return false">
+            <p>Add New File</p>
+            <input type="text" name="file_name" id="file_name" placeholder="File name">
+            <div class="input_field">
+                <img src="new-file.png" alt="">
+                <input type="file" name="new_file" id="new_file" onchange="">
+            </div>
+            <button>SUBMIT</button>
+        </form>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

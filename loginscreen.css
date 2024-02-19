@@ -1,0 +1,47 @@
+#loginScreen{
+    background-image: linear-gradient(cyan, gold);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#loginScreen form{
+    background-color: rgba(85, 107, 47, 0.468);
+    width: 80%;
+    border: 1.5px solid;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4%;
+    border-radius: 50px 0 50px 0;
+}
+
+form > img{
+    width: 35%;
+}
+
+form  p{
+    font-size: 5vw;
+    background-color: rgb(57, 57, 57);
+    color: aliceblue;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+#loginScreen form input{
+    width: 90%;
+    height: 10vw;
+    border: 1.4px solid;
+    border-radius: 10px;
+}
+
+#loginScreen form input[type=button]{
+    width: 50%;
+    background-color: gold;
+    font-weight: 900;
+}

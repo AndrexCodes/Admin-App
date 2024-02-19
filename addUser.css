@@ -1,0 +1,40 @@
+#addUser{
+    background-image: linear-gradient(45deg, cyan, green);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#addUser form{
+    width: 90%;
+    height: 50%;
+    border: 1.5px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4%;
+    position: relative;
+}
+
+#addUser form input{
+    width: 80%;
+    height: 9vw;
+}
+
+#back_btn{
+    width: 15%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    top: 7%;
+    border: 0;
+    background-color: aqua;
+}
