@@ -317,14 +317,14 @@ function AddProduct(){
 }
 
 function UnitProductUpdate(){
-    var unit_id = ""
-    var product_id = ""
-    var new_amount = ""
-    var new_quantity = ""
-    var new_price = ""
-
+    var unit_id = localStorage.getItem("current_business_id")
+    var product_id = localStorage.getItem("current_product_id")
     var new_img = ""
     var new_name = ""
+    var new_price = ""
+    var new_quantity = ""
+    var new_amount = ""
+    
     if(new_amount.length == 0 || new_quantity.length == 0 || new_price.length == 0){
         alert("Missing data sets")
         return
