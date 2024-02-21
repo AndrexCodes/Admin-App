@@ -155,17 +155,17 @@ function getMassUnits(state){
     })
 }
 
-setInterval(()=>{
-    getMassUnits(false)
-}, 60000)
+// setInterval(()=>{
+//     getMassUnits(false)
+// }, 60000)
 
-setInterval(()=>{
-    getUnitProducts(localStorage.getItem("current_business_id"), false)
-}, 50000)
+// setInterval(()=>{
+//     getUnitProducts(localStorage.getItem("current_business_id"), false)
+// }, 50000)
 
-setInterval(()=>{
-    fetchAllFiles(false)
-}, 40000)
+// setInterval(()=>{
+//     fetchAllFiles(false)
+// }, 40000)
 
 
 function getUnitProducts(unit_id, state){
@@ -316,6 +316,18 @@ function AddProduct(){
     
 }
 
+function display_new_img(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      const imgElement = document.getElementById('edit_product_img');
+      imgElement.src = event.target.result;
+    }
+    
+    reader.readAsDataURL(file);
+  }
+
 function UnitProductUpdate(event){
     event.preventDefault()
     var unit_id = localStorage.getItem("current_business_id")
@@ -326,6 +338,14 @@ function UnitProductUpdate(event){
     var new_quantity = document.getElementById("edit_product_quantity").value
     var all_values = [new_img, new_name, new_price, new_quantity]
     for (let index = 0; index < all_values.length; index++){
+        if(index == 0){
+            if(new_img.files.length == 0){
+                new_img = null
+            }else{
+                new_img = new_img.files[0]
+            }
+            continue
+        }
         if(all_values[index].length == 0){
             alert("Please confirm input validity")
             return
@@ -335,7 +355,7 @@ function UnitProductUpdate(event){
     productUpdates.append("user_id", localStorage.getItem("user_id"))
     productUpdates.append("biz_id", unit_id)
     productUpdates.append("product_id", product_id)
-    productUpdates.append("new_img", new_img.files[0])
+    productUpdates.append("new_img", new_img)
     productUpdates.append("new_name", new_name)
     productUpdates.append("new_price", new_price)
     productUpdates.append("new_quantity", new_quantity)
@@ -352,6 +372,7 @@ function UnitProductUpdate(event){
         if(y["state"]==="True"){
             alert("Successful Updates")
             getUnitProducts(unit_id, true)
+            screenManager(2)
         }
     })
 }
