@@ -73,7 +73,7 @@
         </div>
         <div class="addUnit">
             <img src="home_icon.png" alt="">
-            <img src="search_icon_white.png" alt="">
+            <img src="search_icon_white.png" alt="" onclick="document.getElementById('search_home').style.display = 'flex'; document.getElementById('search_home').focus()">
             <img src="settings.png" alt="">
         </div>
     </div>
@@ -150,7 +150,7 @@
         <form action="" onsubmit="UnitProductUpdate(event)" method="post">
             <div>
                 <img src="" alt="" id="edit_product_img">
-                <input type="file" name="edit_product_img_input" id="edit_product_img_input">
+                <input type="file" name="edit_product_img_input" id="edit_product_img_input" onchange="display_new_img(event)">
             </div>
             <label for="text">Name of Product</label>
             <input type="text" name="edit_product_name" id="edit_product_name" minlength="4" required>
