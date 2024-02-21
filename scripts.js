@@ -1,5 +1,5 @@
-// const home_url = "https://ionextechsolutions.com/businessmanager"
-const home_url = "http://127.0.0.1:5000"
+const home_url = "https://ionextechsolutions.com/businessmanager"
+// const home_url = "http://127.0.0.1:5000"
 const dashscreen = document.getElementById("dashScreen")
 const loginScreen = document.getElementById("loginScreen")
 const productsScreen = document.getElementById("productsScreen")
@@ -372,6 +372,35 @@ function UnitProductUpdate(event){
         if(y["state"]==="True"){
             alert("Successful Updates")
             getUnitProducts(unit_id, true)
+            screenManager(2)
+        }
+    })
+}
+
+function deleteProduct(){
+    var user_id = localStorage.getItem("user_id")
+    var biz_id = localStorage.getItem("unit_id")
+    var product_id = localStorage.getItem("current_product_id")
+    var url = `${home_url}/deleteProduct`
+    var data = {
+        "user_id": user_id,
+        "biz_id": biz_id,
+        "product_id": product_id
+    }
+    var options = {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+    fetch(url, options)
+    .then(x=>x.json())
+    .then(y=>{
+        console.log(y)
+        if(y["state"]){
+            alert("Product delete successfully")
+            getUnitProducts(biz_id, false)
             screenManager(2)
         }
     })
