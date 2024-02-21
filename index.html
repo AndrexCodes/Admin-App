@@ -175,12 +175,19 @@
     <div id="logScreen">
     </div>
     <div id="addUser">
-        <button onclick="screenManager(2)" id="back_btn">&LeftArrow;</button>
+        <header>
+            <div>
+                <img src="back_white_icon.png" alt="back">
+            </div>
+        </header>
+        <!-- <button onclick="screenManager(2)" id="back_btn">&LeftArrow;</button> -->
         <form name="addUserForm" onsubmit="addUser();return false">
-            <h3>Add User</h3>
+            <h3>Add Employee</h3>
+            <label for="username">Username</label>
             <input type="text" name="username" id="username" placeholder="User Name">
+            <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Password">
-            <input type="submit" value="Add User">
+            <input type="submit" value="Add Employee">
         </form>
     </div>
     <div id="add_files_screen">
