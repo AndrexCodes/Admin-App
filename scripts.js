@@ -1,5 +1,5 @@
-const home_url = "https://ionextechsolutions.com/businessmanager"
-// const home_url = "http://127.0.0.1:5000"
+// const home_url = "https://ionextechsolutions.com/businessmanager"
+const home_url = "http://127.0.0.1:5000"
 const dashscreen = document.getElementById("dashScreen")
 const loginScreen = document.getElementById("loginScreen")
 const productsScreen = document.getElementById("productsScreen")
@@ -316,33 +316,33 @@ function AddProduct(){
     
 }
 
-function UnitProductUpdate(){
+function UnitProductUpdate(event){
+    event.preventDefault()
     var unit_id = localStorage.getItem("current_business_id")
     var product_id = localStorage.getItem("current_product_id")
-    var new_img = ""
-    var new_name = ""
-    var new_price = ""
-    var new_quantity = ""
-    var new_amount = ""
-    
-    if(new_amount.length == 0 || new_quantity.length == 0 || new_price.length == 0){
-        alert("Missing data sets")
-        return
+    var new_img = document.getElementById("edit_product_img_input")
+    var new_name = document.getElementById("edit_product_name").value
+    var new_price = document.getElementById("edit_product_price").value
+    var new_quantity = document.getElementById("edit_product_quantity").value
+    var all_values = [new_img, new_name, new_price, new_quantity]
+    for (let index = 0; index < all_values.length; index++){
+        if(all_values[index].length == 0){
+            alert("Please confirm input validity")
+            return
+        }
     }
+    var productUpdates = new FormData()
+    productUpdates.append("user_id", localStorage.getItem("user_id"))
+    productUpdates.append("biz_id", unit_id)
+    productUpdates.append("product_id", product_id)
+    productUpdates.append("new_img", new_img.files[0])
+    productUpdates.append("new_name", new_name)
+    productUpdates.append("new_price", new_price)
+    productUpdates.append("new_quantity", new_quantity)
     var url = `${home_url}/updateProductData`
     var options = {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "user_id": localStorage.getItem("user_id"),
-            "biz_id": localStorage.getItem("unit_id"),
-            "product_id": product_id,
-            "new_amount": new_amount,
-            "new_quantity": new_quantity,
-            "new_price": new_price
-        })
+        body: productUpdates
     }
     loading_screen.style.display = "flex"
     fetch(url, options)
