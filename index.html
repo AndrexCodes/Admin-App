@@ -10,6 +10,7 @@
             width: 100vw;
             height: 100vh;
             margin: 0;
+            overflow: hidden scroll;
         }
     </style>
     <link rel="stylesheet" href="dashscreen.css">
@@ -152,7 +153,7 @@
         <form action="" onsubmit="UnitProductUpdate(event)" method="post">
             <div>
                 <img src="" alt="" id="edit_product_img">
-                <input type="file" name="edit_product_img_input" id="edit_product_img_input" onchange="display_new_img(event)">
+                <input type="file" name="edit_product_img_input" id="edit_product_img_input" onchange="display_new_img(event, document.getElementById('edit_product_img'), false)">
             </div>
             <label for="text">Name of Product</label>
             <input type="text" name="edit_product_name" id="edit_product_name" minlength="4" required>
@@ -164,13 +165,23 @@
         </form>
     </div>
     <div id="addProductScreen">
-        <button onclick="screenManager(2)">&LeftArrow;</button>
-        <form name="addProductForm" onsubmit="AddProduct(); return false">
-            <h4>New Product</h4>
-            <input type="text" name="productName" id="productName" placeholder="Item Name">
+        <header>
+            <div onclick="screenManager(2)">
+                <img src="back_white_icon.png" alt="">
+            </div>
+            <p>Add New product</p>
+        </header>
+        <form name="addProductForm" onsubmit="AddProduct(event); return false">
+            <div>
+                <input type="file" name="productImage" id="productImage" onchange="display_new_img(event, document.getElementById('view_added_img'), true)">
+                <img src="add_img_icon.png" alt="" id="view_added_img">
+            </div>
+            <label for="text">Name of the Product</label>
+            <input type="text" name="productName" id="productName" placeholder="Product Name">
+            <label for="number">Product Price</label>
             <input type="number" name="productPrice" id="productPrice" placeholder="Unit Price">
-            <input type="number" name="productQuantity" id="productQuantity" placeholder="Initial Quantity">
-            <input type="file" name="productImage" id="productImage">
+            <label for="number">Quantity</label>
+            <input type="number" name="productQuantity" id="productQuantity" placeholder="Quantity">
             <input type="submit" value="Add Product">
         </form>
     </div>

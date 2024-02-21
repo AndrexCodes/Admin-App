@@ -283,12 +283,29 @@ function ProductSearch(search_letter){
     }
 }
 
-function AddProduct(){
+function AddProduct(event){
+    event.preventDefault()
     const addProductForm = document.forms["addProductForm"]
     var name = addProductForm["productName"].value
     var price = addProductForm["productPrice"].value
     var quantity = addProductForm["productQuantity"].value
-    var image = addProductForm["productImage"].files[0]
+    var image = addProductForm["productImage"]
+    var all_values = [name, price, quantity, image]
+    for(let x = 0; x < all_values.length; x++){
+        if(x == 3){
+            if(all_values[x].files.length == 0){
+                alert("Missing data sets")
+                return false
+            }else{
+                image = image.files[0]
+            }
+            continue
+        }
+        if(all_values[x].length < 3){
+            alert("Missing data sets")
+            return false
+        }
+    }
     var form = new FormData()
     form.append("user_id", localStorage.getItem("user_id"))
     form.append("biz_id", localStorage.getItem("unit_id"))
@@ -308,6 +325,7 @@ function AddProduct(){
         loading_screen.style.display = "none"
         if(y["state"]==="True"){
             alert("Successful Transit")
+            getUnitProducts(localStorage.getItem("unit_id"), false)
             screenManager(2)
         }else{
             alert("Transit Failed")
@@ -316,13 +334,17 @@ function AddProduct(){
     
 }
 
-function display_new_img(event) {
+function display_new_img(event, display_board, resize) {
     const file = event.target.files[0];
     const reader = new FileReader();
     
     reader.onload = function(event) {
-      const imgElement = document.getElementById('edit_product_img');
+      const imgElement = display_board;
       imgElement.src = event.target.result;
+      if(resize){
+        imgElement.style.width = "100%"
+        imgElement.style.height = "100%"
+      }
     }
     
     reader.readAsDataURL(file);
@@ -504,7 +526,7 @@ function addNewFile(){
 
     file_name = file_name.replace(/ /g, "_");
     console.log(file_name)
-    // return 
+    // return
     
     var url = `${home_url}/addNewFile`
     var data = new FormData();
