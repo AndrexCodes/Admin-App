@@ -205,7 +205,9 @@
     </div>
     <div id="add_files_screen">
         <header>
-            <img src="back_white_icon.png" alt="" onclick="screenManager(2)">
+            <div>
+                <img src="back_white_icon.png" alt="" onclick="screenManager(2)">
+            </div>
             <img src="new-file.png" alt="" onclick="screenManager(7)">
         </header>
         <div id="all_files">
@@ -230,16 +232,18 @@
     </div>
     <div id="add_file_form">
         <header>
-            <img src="back_white_icon.png" alt="" onclick="screenManager(6)">
+            <div>
+                <img src="back_white_icon.png" alt="" onclick="screenManager(6)">
+            </div>
         </header>
         <form name="add_file" onsubmit="addNewFile(); return false">
-            <p>Add New File</p>
+            <p>New File</p>
             <input type="text" name="file_name" id="file_name" placeholder="File name">
             <div class="input_field">
                 <img src="new-file.png" alt="">
                 <input type="file" name="new_file" id="new_file" onchange="">
             </div>
-            <button>SUBMIT</button>
+            <button>Upload File</button>
         </form>
     </div>
     <script src="scripts.js"></script>
