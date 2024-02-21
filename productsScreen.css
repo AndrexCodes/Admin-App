@@ -65,7 +65,7 @@
     list-style: none;
     border-radius: 10px;
     width: 100%;
-    height: 100%;
+    height: max-content;
     position: absolute;
     margin: 0;
     padding: 0;
@@ -76,7 +76,7 @@
 }
 
 #product_screen_menu li{
-    margin: 0 0 0 10px;
+    margin: 10px 0 15px 10px;
     color: white;
     font-size: 4vw;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
