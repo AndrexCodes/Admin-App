@@ -1,5 +1,5 @@
-const home_url = "https://ionextechsolutions.com/businessmanager"
-// const home_url = "http://127.0.0.1:5000"
+// const home_url = "https://ionextechsolutions.com/businessmanager"
+const home_url = "http://127.0.0.1:5000"
 const dashscreen = document.getElementById("dashScreen")
 const loginScreen = document.getElementById("loginScreen")
 const productsScreen = document.getElementById("productsScreen")
