@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="add_files_screen.css">
     <link rel="stylesheet" href="updateProducts_screen.css">
     <link rel="stylesheet" href="product_details_screen.css">
+    <link rel="stylesheet" href="view_employees_screen.css">
 </head>
 <body  onload="getMassUnits(true)">
 <!-- <body> -->
@@ -45,14 +46,14 @@
                 Simba Farm
             </p>
             <div>
-                <input type="checkbox" name="" id="">
+                <input type="checkbox" name="dash_board_menu" id="dash_board_menu">
                 <div class="toggle">
                     <div id="bar_1"></div>
                     <div id="bar_2"></div>
                     <div id="bar_3"></div>
                 </div>
                 <ul id="dash_menu_data">
-                    <li onclick="newUnit()">New Business</li>
+                    <li onclick="newUnit(); document.getElementById('dash_board_menu').checked = false">New Business</li>
                     <li>Settings</li>
                     <li>Log Out</li>
                 </ul>
@@ -90,9 +91,9 @@
                 <span></span>
                 <span></span>
                 <ul id="product_screen_menu">
-                    <li onclick="screenManager(3)">New Product</li>
-                    <li onclick="screenManager(5)">New employees</li>
-                    <li onclick="screenManager(6)">Files & Docx</li>
+                    <li onclick="screenManager(3); document.getElementById('product_menu').checked = false">New Product</li>
+                    <li onclick="screenManager(5); document.getElementById('product_menu').checked = false">Employees</li>
+                    <li onclick="screenManager(6); fetchAllFiles(false); document.getElementById('product_menu').checked = false">Files & Docx</li>
                 </ul>
             </div>
         </header>
@@ -245,6 +246,62 @@
             </div>
             <button>Upload File</button>
         </form>
+    </div>
+    <div id="view_employees_screen">
+        <header>
+            <div onclick="screenManager(2)">
+                <img src="back_white_icon.png" alt="">
+            </div>
+        </header>
+        <div class="employee_board">
+            <div id="all_employees">
+                <p>Employees</p>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                <div class="unit_employee">
+                    <img src="Andrelly.jpg" alt="">
+                    <p>Andrelly</p>
+                </div>
+                
+            </div>
+            <div class="employe_details">
+                
+            </div>
+        </div>
     </div>
     <script src="scripts.js"></script>
 </body>

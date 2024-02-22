@@ -1,5 +1,5 @@
-// const home_url = "https://ionextechsolutions.com/businessmanager"
-const home_url = "http://127.0.0.1:5000"
+const home_url = "https://ionextechsolutions.com/businessmanager"
+// const home_url = "http://127.0.0.1:5000"
 const dashscreen = document.getElementById("dashScreen")
 const loginScreen = document.getElementById("loginScreen")
 const productsScreen = document.getElementById("productsScreen")
@@ -193,13 +193,17 @@ function getUnitProducts(unit_id, state){
     AllProducts.innerHTML = ""
     var search_letters = document.createElement("div")
     search_letters.setAttribute("class", "search_letters")
-    var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    var letters = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var let_btns = []
-    for(let r = 0; r <26; r++){
+    for(let r = 0; r <letters.length; r++){
         let_btns[r] = document.createElement("button")
         let_btns[r].innerHTML = letters[r]
         let_btns[r].addEventListener("click", ()=>{
-            ProductSearch(letters[r])
+            if(letters[r] == "#"){
+                ProductSearch("")
+            }else{
+                ProductSearch(letters[r])
+            }
         })
         search_letters.appendChild(let_btns[r])
     }
@@ -294,15 +298,15 @@ function AddProduct(event){
     for(let x = 0; x < all_values.length; x++){
         if(x == 3){
             if(all_values[x].files.length == 0){
-                alert("Missing data sets")
+                alert("Missing Image")
                 return false
             }else{
                 image = image.files[0]
             }
             continue
         }
-        if(all_values[x].length < 3){
-            alert("Missing data sets")
+        if(all_values[x].length == 0){
+            alert(`Missing data sets @ ${x}`)
             return false
         }
     }
@@ -623,11 +627,14 @@ function fetchAllFiles(state){
                         })
                     }, 3000)
                 })
+                // unit_file_imgs[x].addEventListener("onmousedown", ()=>{
+                //     console.log("hello")
+                // })
 
                 var file_type_img = document.createElement("img")
                 
                 var file_extension = y[x][3].split(".")[1]
-                if(file_extension == "jpeg" || file_extension == "jpg" || file_extension == "png"){
+                if(file_extension == "jpeg" || file_extension == "jpg" || file_extension == "png" || file_extension == "PNG"){
                     file_type_img.src = "image.png"
                 }else if(file_extension == "pdf"){
                     file_type_img.src = "docx.png"

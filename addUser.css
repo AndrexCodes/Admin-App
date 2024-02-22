@@ -58,7 +58,9 @@
     border: 0;
     border-radius: 100px;
     outline: none;
+    color: white;
     margin-top: 7px;
+    padding-left: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 #addUser form input[type="submit"]{
