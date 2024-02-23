@@ -54,14 +54,13 @@
                 </div>
                 <ul id="dash_menu_data">
                     <li onclick="newUnit(); document.getElementById('dash_board_menu').checked = false">New Business</li>
-                    <li>Settings</li>
-                    <li>Log Out</li>
+                    <li onclick="LogOut(); document.getElementById('dash_board_menu').checked = false">Log Out</li>
                 </ul>
             </div>
         </header>
         <div class="extra">
             <p>My Businesses</p>
-            <input type="text" name="search_home" id="search_home" placeholder="Search  here ........" style="display: none;">
+            <input type="text" name="search_home" id="search_home" placeholder="Search  here ........" style="display: none;" oninput="Businesssearch()">
         </div>
         <div id="userUnits">
             <div class="unitUnit">
@@ -92,8 +91,9 @@
                 <span></span>
                 <ul id="product_screen_menu">
                     <li onclick="screenManager(3); document.getElementById('product_menu').checked = false">New Product</li>
-                    <li onclick="screenManager(5); document.getElementById('product_menu').checked = false">Employees</li>
+                    <li onclick="fetchAllEmployees(); screenManager(10); document.getElementById('product_menu').checked = false">Employees</li>
                     <li onclick="screenManager(6); fetchAllFiles(false); document.getElementById('product_menu').checked = false">Files & Docx</li>
+                    <li onclick="deleteBusiness(); document.getElementById('product_menu').checked = false">Delete Business</li>
                 </ul>
             </div>
         </header>
@@ -190,8 +190,8 @@
     </div>
     <div id="addUser">
         <header>
-            <div>
-                <img src="back_white_icon.png" alt="back" onclick="screenManager(2)">
+            <div onclick="screenManager(10)">
+                <img src="back_white_icon.png" alt="back">
             </div>
         </header>
         <!-- <button onclick="screenManager(2)" id="back_btn">&LeftArrow;</button> -->
@@ -252,54 +252,27 @@
             <div onclick="screenManager(2)">
                 <img src="back_white_icon.png" alt="">
             </div>
+            <button onclick="screenManager(5)">Add</button>
         </header>
         <div class="employee_board">
             <div id="all_employees">
-                <p>Employees</p>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                <div class="unit_employee">
-                    <img src="Andrelly.jpg" alt="">
-                    <p>Andrelly</p>
-                </div>
-                
+                <p>Employees</p> 
             </div>
             <div class="employe_details">
-                
+                <header>
+                    <p>Employee Details</p>
+                    <button onclick="updateClientDetails()">Delete</button>
+                </header>
+                <form action="" onsubmit="updateClientDetails(true); event.preventDefault()">
+                    <div>
+                        <p id="emplyee_assets">Ksh 3,000</p>
+                    </div>
+                    <label for="">User Name</label>
+                    <input type="text" name="employee_name" id="employee_name">
+                    <label for="">Password</label>
+                    <input type="text" name="employee_pass" id="employee_pass">
+                    <button>Update</button>
+                </form>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
-const home_url = "https://ionextechsolutions.com/businessmanager"
-// const home_url = "http://127.0.0.1:5000"
+// const home_url = "https://ionextechsolutions.com/businessmanager"
+const home_url = "http://127.0.0.1:5000"
 const dashscreen = document.getElementById("dashScreen")
 const loginScreen = document.getElementById("loginScreen")
 const productsScreen = document.getElementById("productsScreen")
@@ -11,10 +11,13 @@ const add_files_screen = document.getElementById("add_files_screen")
 const add_file_form = document.getElementById("add_file_form")
 const updateProducts_screen = document.getElementById("updateProducts_screen")
 const product_details_screen = document.getElementById("product_details_screen")
-const allScreens = [dashscreen, loginScreen, productsScreen, addProductScreen, logScreen, addUserScreen, add_files_screen, add_file_form, updateProducts_screen, product_details_screen]
-console.log(localStorage.getItem("user_id"))
+const view_employees_screen = document.getElementById("view_employees_screen")
+const allScreens = [dashscreen, loginScreen, productsScreen, addProductScreen, logScreen, addUserScreen, add_files_screen, add_file_form, updateProducts_screen, product_details_screen, view_employees_screen]
+// console.log(localStorage.getItem("user_id"))
 
+var all_businesses = []
 var all_products = []
+
 
 function killAllScreens(){
     allScreens.forEach(element=>{
@@ -29,7 +32,6 @@ function screenManager(screen_no){
     }else{
         allScreens[screen_no].style.display = "flex"
     }
-    
 }
 
 function login(){
@@ -128,6 +130,7 @@ function getMassUnits(state){
         const userUnits = document.getElementById("userUnits")
         userUnits.innerHTML = ""
         const unitUnits = []
+        all_businesses = []
         for(let x = 0; x < y.length; x++){
             unitUnits[x] = document.createElement('div')
             unitUnits[x].setAttribute("class", "unitUnit")
@@ -135,6 +138,10 @@ function getMassUnits(state){
                 localStorage.setItem("unit_id", y[x][1])
                 getUnitProducts(y[x][1], true)
                 screenManager(2)
+            })
+            all_businesses.push({
+                "name": y[x][2],
+                "domElement": unitUnits[x]
             })
             var start_letter = document.createElement('p')
             start_letter.innerHTML =  y[x][2].charAt(0)
@@ -152,6 +159,7 @@ function getMassUnits(state){
         }
         console.log(state)
         loading_screen.style.display = "none"
+        screenManager(1)
     })
 }
 
@@ -287,6 +295,27 @@ function ProductSearch(search_letter){
     }
 }
 
+function Businesssearch(){
+    var search_box = document.getElementById("search_home")
+    search_box = search_box.value
+    let x = 0
+    if(search_box.length == 0){
+        for(x = 0; x < all_businesses.length; x++){
+            all_businesses[x]["domElement"].style.display = "flex"
+        }
+    }else{
+        for(x = 0; x < all_businesses.length; x++){
+            var substring = all_businesses[x]["name"].substring(0, search_box.length)
+            console.log(substring)
+            if(substring.toLowerCase() == search_box.toLowerCase()){
+                all_businesses[x]["domElement"].style.display = "flex"
+            }else{
+                all_businesses[x]["domElement"].style.display = "none"
+            }
+        }
+    }
+}
+
 function AddProduct(event){
     event.preventDefault()
     const addProductForm = document.forms["addProductForm"]
@@ -352,7 +381,7 @@ function display_new_img(event, display_board, resize) {
     }
     
     reader.readAsDataURL(file);
-  }
+}
 
 function UnitProductUpdate(event){
     event.preventDefault()
@@ -435,6 +464,36 @@ function deleteProduct(){
     })
 }
 
+function deleteBusiness(){
+    var user_id = localStorage.getItem("user_id")
+    var business_id = localStorage.getItem("unit_id")
+    var url = `${home_url}/deleteUnit`
+    var data = {
+        "user_id": user_id,
+        "business_id": business_id
+    }
+    var options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+    fetch(url, options)
+    .then(x=>x.json())
+    .then(y=>{
+        console.log(y)
+        if(y["state"]){
+            alert("Successful Transit ...")
+            getMassUnits(true)
+            screenManager(0)
+        }
+    })
+    .catch(()=>{
+        alert("Please check your internet connection")
+    })
+}
+
 function addUser(){
     const adduserform = document.forms["addUserForm"]
     const username = adduserform["username"]
@@ -465,7 +524,8 @@ function addUser(){
         loading_screen.style.display = "none"
         if(y["state"]==="True"){
             alert("Successfull Transit")
-            screenManager(2)
+            fetchAllEmployees()
+            screenManager(10)
         }else{
             alert("Error! User name Already Exists")
         }
@@ -672,6 +732,146 @@ function fetchAllFiles(state){
     
 }
 
+function fetchAllEmployees(){
+    var user_id = localStorage.getItem("user_id")
+    var biz_id = localStorage.getItem("unit_id")
+    var url = `${home_url}/getEmployees`
+    var data = {
+        "business_id": localStorage.getItem("user_id"),
+        "unit_business_id": localStorage.getItem("unit_id"),
+    }
+    var options = {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+    loading_screen.style.display = "flex"
+    fetch(url, options)
+    .then(x=>x.json())
+    .then(y=>{
+        console.log(y)
+        loading_screen.style.display = "none"
+        if(y["state"]){
+            var display_board = document.getElementById("all_employees")
+            var children = display_board.children
+            for(let x = 0; x < children.length; x++){
+                if(x == 0){
+                    continue
+                }
+                children[x].style.display = "none"
+            }
+            var unit_employees = []
+            for(let x = 0; x < y["data"].length; x++){
+                unit_employees[x] = document.createElement("div")
+                unit_employees[x].setAttribute("class", "unit_employee")
+                unit_employees[x].addEventListener("click", ()=>{
+                    console.log("lllll")
+                    localStorage.setItem("employee_id", y["data"][x][2])
+                    var emplyee_assets = document.getElementById('emplyee_assets')
+                    emplyee_assets.innerHTML = `Ksh ${y["data"][x][4]}`
+                    var employee_name = document.getElementById('employee_name')
+                    employee_name.value = y["data"][x][3]
+                    var employee_pass = document.getElementById('employee_pass')
+                    employee_pass.value = "*** Hidden ***"
+                })
+                var employee_img = document.createElement("img")
+                employee_img.src = "Andrelly.jpg"
+                var name = document.createElement("p")
+                name.innerHTML = y["data"][x][3]
+                unit_employees[x].appendChild(employee_img)
+                unit_employees[x].appendChild(name)
+                display_board.appendChild(unit_employees[x])
+            }
+        }
+    })
+    .catch(()=>{
+        alert("Please check your internet conection !!")
+        loading_screen.style.display = "none"
+    })
+}
+
+function updateClientDetails(state){
+    if(state){
+        var employee_name = document.getElementById("employee_name")
+        var employee_pass = document.getElementById("employee_pass")
+        if(employee_name.value.length == 0 || employee_pass.value.length == 0){
+            alert("Missing data sets ...")
+            return
+        }
+        if(employee_pass.value == "*** Hidden ***"){
+            employee_pass = false
+        }else{
+            employee_pass = employee_pass.value
+        }
+        var url = `${home_url}/updateEmployee`
+        var data = {
+            "state": state,
+            "user_id": localStorage.getItem("user_id"),
+            "biz_id": localStorage.getItem("unit_id"),
+            "employee_id": localStorage.getItem("employee_id"),
+            "employee_name": employee_name.value,
+            "employee_pass": employee_pass
+        }
+        var options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        loading_screen.style.display = "flex"
+        fetch(url, options)
+        .then(x=>x.json())
+        .then(y=>{
+            loading_screen.style.display = "none"
+            console.log(y)
+            if(y["state"]){
+                alert("Successful Transit")
+                fetchAllEmployees()
+            }else{
+                alert("Transition Failed ...")
+            }
+        })
+    }else{
+        if(confirm("Are you sure you want to delete ...")){
+            var url = `${home_url}/updateEmployee`
+            var data = {
+                "state": false,
+                "user_id": localStorage.getItem("user_id"),
+                "biz_id": localStorage.getItem("unit_id"),
+                "employee_id": localStorage.getItem("employee_id"),
+            }
+            var options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }
+            loading_screen.style.display = "flex"
+            fetch(url, options)
+            .then(x=>x.json())
+            .then(y=>{
+                console.log(y)
+                loading_screen.style.display = "none"
+                console.log(y)
+                if(y["state"]){
+                    alert("Successful Transit")
+                    fetchAllEmployees()
+                }else{
+                    alert("Transition Failed ...")
+                }
+            })
+            .catch(()=>{
+                alert("Please check your internet connection!")
+                loading_screen.style.display = "none"
+            })
+        }
+    }
+}
+
 function sortProducts(data){
     console.log(data)
     var key_elements = []
@@ -689,4 +889,10 @@ function sortProducts(data){
     
     return new_data
     
+}
+
+function LogOut(){
+    localStorage.clear()
+    loading_screen.style.display = "flex"
+    location.reload()
 }

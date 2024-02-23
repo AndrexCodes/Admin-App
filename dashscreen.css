@@ -8,8 +8,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    display: none;
-    overflow: auto;
+    /* display: none; */
+    overflow: hidden auto;
     position: relative;
 }
 

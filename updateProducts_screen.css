@@ -74,7 +74,7 @@
 }
 
 #updateProducts_screen form label{
-    margin: 15px 0 5px 0;
+    margin: 12px 0 5px 0;
     width: 90%;
     font-size: 4vw;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -93,7 +93,7 @@
 
 #updateProducts_screen form button{
     background-color: white;
-    margin-top: 20px;
+    margin-top: 12px;
     width: 40%;
     padding: 10px;
     border-radius: 10px;

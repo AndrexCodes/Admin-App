@@ -7,14 +7,12 @@
 }
 
 #add_files_screen header{
-    /* background-color: rgb(109, 109, 109); */
+    background-color: rgb(34, 34, 34);
     width: 100%;
     height: 12vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
-    top: 0;
 }
 
 #add_files_screen header > img{
@@ -38,10 +36,12 @@
     /* background-color: rgb(211, 211, 211); */
     color: #fff;
     width: 100%;
-    height: fit-content;
+    height: 88vh;
+    padding: 0 0 20px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    overflow: hidden auto;
 }
 
 #all_files .unit_file{
